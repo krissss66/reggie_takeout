@@ -12,6 +12,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 
 
 @Slf4j
@@ -53,6 +54,38 @@ public class EmployeeController {
     public R<String> logout(HttpServletRequest request) {
         request.getSession().removeAttribute("employee");
         return R.success("logout successfully");
+    }
+
+
+    @PostMapping
+    public R<String> save(HttpServletRequest request, @RequestBody Employee employee) {
+
+
+        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        Long empID = (Long) request.getSession().getAttribute("employee");
+        employee.setCreateUser(empID);
+        employee.setUpdateUser(empID);
+        employeeService.save(employee);
+        return R.success("save successfully");
+    }
+
+
+    @GetMapping("/page")
+    public R<Page> page(int page, int pageSize,String name){
+        Page pageInfo = new Page(page, pageSize);
+
+        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<Employee>();
+        queryWrapper.like(StringUtils.isNotBlank(name), Employee::getName, name);
+
+        queryWrapper.orderByDesc(Employee::getCreateTime);
+
+        employeeService.page(pageInfo, queryWrapper);
+        return R.success(pageInfo);
+
     }
 
 
