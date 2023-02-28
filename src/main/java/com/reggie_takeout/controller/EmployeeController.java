@@ -88,6 +88,22 @@ public class EmployeeController {
 
     }
 
+    @PutMapping
+    public R<String> update(HttpServletRequest request, @RequestBody Employee employee) {
+
+        employee.setUpdateTime(LocalDateTime.now());
+        Long empID = (Long) request.getSession().getAttribute("employee");
+        employee.setUpdateUser(empID);
+        employeeService.updateById(employee);
+        return R.success("update successfully");
+    }
+
+    @GetMapping("/{id}")
+    public R<Employee> getById(@PathVariable Long id){
+
+        return R.success(employeeService.getById(id));
+    }
+
 
 
 }
