@@ -62,13 +62,13 @@ public class EmployeeController {
 
 
         employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
-
-        employee.setCreateTime(LocalDateTime.now());
-        employee.setUpdateTime(LocalDateTime.now());
-
-        Long empID = (Long) request.getSession().getAttribute("employee");
-        employee.setCreateUser(empID);
-        employee.setUpdateUser(empID);
+//
+//        employee.setCreateTime(LocalDateTime.now());
+//        employee.setUpdateTime(LocalDateTime.now());
+//
+//        Long empID = (Long) request.getSession().getAttribute("employee");
+//        employee.setCreateUser(empID);
+//        employee.setUpdateUser(empID);
         employeeService.save(employee);
         return R.success("save successfully");
     }
@@ -91,9 +91,9 @@ public class EmployeeController {
     @PutMapping
     public R<String> update(HttpServletRequest request, @RequestBody Employee employee) {
 
-        employee.setUpdateTime(LocalDateTime.now());
-        Long empID = (Long) request.getSession().getAttribute("employee");
-        employee.setUpdateUser(empID);
+//        employee.setUpdateTime(LocalDateTime.now());
+//        Long empID = (Long) request.getSession().getAttribute("employee");
+//        employee.setUpdateUser(empID);
         employeeService.updateById(employee);
         return R.success("update successfully");
     }
