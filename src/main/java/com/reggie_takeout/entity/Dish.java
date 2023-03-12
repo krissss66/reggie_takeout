@@ -1,35 +1,54 @@
 package com.reggie_takeout.entity;
-
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * 分类
+ 菜品
  */
 @Data
-public class Category implements Serializable {
+public class Dish implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
 
 
-    private Integer type;
-
-
-
+    //菜品名称
     private String name;
 
 
-    private Integer sort;
+    //菜品分类id
+    private Long categoryId;
 
+
+    //菜品价格
+    private BigDecimal price;
+
+
+    //商品码
+    private String code;
+
+
+    //图片
+    private String image;
+
+
+    //描述信息
+    private String description;
+
+
+    //0 停售 1 起售
+    private Integer status;
+
+
+    //顺序
+    private Integer sort;
 
 
     @TableField(fill = FieldFill.INSERT)

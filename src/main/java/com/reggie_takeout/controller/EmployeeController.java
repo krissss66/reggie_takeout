@@ -82,7 +82,6 @@ public class EmployeeController {
         queryWrapper.like(StringUtils.isNotBlank(name), Employee::getName, name);
 
         queryWrapper.orderByDesc(Employee::getCreateTime);
-
         employeeService.page(pageInfo, queryWrapper);
         return R.success(pageInfo);
 
